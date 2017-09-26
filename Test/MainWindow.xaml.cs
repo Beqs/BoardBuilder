@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Test
 {
@@ -20,60 +21,56 @@ namespace Test
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Form Main;
-        private Streamer Saving;
-        private string brand, wheels, size, result;
+        private Builder build;
+        private Streamer logg;
         ListBoxItem builds = new ListBoxItem();
-        
 
 
         public MainWindow()
         {
-            Main = new Form();
-            Saving = new Streamer();
+            build = new Builder();
+            logg = new Streamer();
             ListBoxItem builds = new ListBoxItem();
             InitializeComponent();
         }
 
         private void Brand_TextChanged(object sender, TextChangedEventArgs e)
         {
-            brand = Brand.Text;
-            Main.Brand = Brand.Text;
+            build.Brand = Brand.Text;
         }
 
         private void Wheels_TextChanged(object sender, TextChangedEventArgs e)
         {
-            wheels = Wheels.Text;
-            Main.Wheels = Wheels.Text;
+            build.Wheels = Wheels.Text;
         }
 
 
         private void Size_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            size = Size.Text;
-            Main.Size = Size.Text;
+        { 
+            build.Size = Size.Text;
         }
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            result = Main.builder();
+            string result = build.builder();      //Stringbuilder som sen läggs in i en listbox (listan)
             builds.Content = result;
             listan.Items.Add(result);
-            Saving.Final = result;
-            Saving.save();
+            logg.Final = result;                  //Lägger till resultatet i loggen             
+            logg.AddLogg();
 
         }
 
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
+            string temp = listan.SelectedItem.ToString();
+            logg.RemoveLogg(temp);                          //Tar bort från listbox och lägger till en kommentar i loggen
             listan.Items.Remove(listan.SelectedItem);
-            Saving.remove(listan.SelectedIndex.ToString()); //TODO Skriv ut index innehåll
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            Saving.closeLogg();
+            logg.SaveLogg();   //Stänger steamwriter
         }
 
     }
