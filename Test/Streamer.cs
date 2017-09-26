@@ -10,23 +10,23 @@ namespace Test
     class Streamer
     {
         StreamWriter saving = new StreamWriter("boards.txt", append: true);
-        private string _final;
+        private string _finalBuild;
 
-        public void save()
+        public void AddLogg()
         {
-            Final = _final;
+            Final = _finalBuild;
             saving.WriteLine("Added: " + Final);
         }
 
-        public void remove(string tmp)
+        public void RemoveLogg(string tmp)
         {
             saving.WriteLine("Removed: {0}", tmp);
         }
         
-        public void closeLogg()
+        public void SaveLogg()
         {
             saving.Close();
         }
-        public string Final { get => _final; set => _final = value; }
+        public string Final { get => _finalBuild; set => _finalBuild = value; }
     }
 }

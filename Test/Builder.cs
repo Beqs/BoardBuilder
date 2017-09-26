@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Test
 {
-    class Form
+    class Builder
     {
         private string _brand, _wheels, _size;
 
