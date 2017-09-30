@@ -1,30 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.IO;
 
 namespace Test
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    ///
+
     public partial class MainWindow : Window
     {
         private Builder build;
         private Streamer logg;
-        ListBoxItem builds = new ListBoxItem();
-
+        private ListBoxItem builds = new ListBoxItem();
 
         public MainWindow()
         {
@@ -44,21 +32,18 @@ namespace Test
             build.Wheels = Wheels.Text;
         }
 
-
         private void Size_TextChanged(object sender, TextChangedEventArgs e)
-        { 
+        {
             build.Size = Size.Text;
         }
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string result = build.builder();      //Stringbuilder som sen läggs in i en listbox (listan)
             builds.Content = result;
             listan.Items.Add(result);
-            logg.Final = result;                  //Lägger till resultatet i loggen             
+            logg.Final = result;                  //Lägger till resultatet i loggen
             logg.AddLogg();
-
         }
 
         private void Remove_Click(object sender, RoutedEventArgs e)
@@ -72,6 +57,5 @@ namespace Test
         {
             logg.SaveLogg();   //Stänger steamwriter
         }
-
     }
 }
